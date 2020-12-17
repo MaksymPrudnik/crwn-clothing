@@ -1,4 +1,4 @@
-import SignIn from '../../components/SignIn/SignIn.component'
+import SignIn from '../../components/SignIn'
 
 export const Authentication = () => (
     <div className='authentication'>
