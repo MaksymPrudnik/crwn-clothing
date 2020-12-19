@@ -18,4 +18,14 @@
     color: black;
     border: 1px solid black;
   }
+
+  &.google {
+    background-color: #4265ac;
+    color: white;
+  }
+
+  &.google:hover {
+    background-color: #35459a;
+    border: none;
+  }
 }

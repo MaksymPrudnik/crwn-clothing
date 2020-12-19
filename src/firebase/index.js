@@ -20,6 +20,34 @@ const config = {
   measurementId: requireReactEnvVar("FIREBASE_MEASUREMENT_ID"),
 };
 
+export const createUserProfileDoc = async (user, additionalData) => {
+  if (!user) {
+    console.error("User object was not passed");
+    return;
+  } else {
+    const userRef = firestore.doc(`users/${user.uid}`);
+
+    const snapshot = await userRef.get();
+
+    if (!snapshot.exists) {
+      const { displayName, email } = user;
+      const createdAt = new Date();
+
+      try {
+        await userRef.set({
+          displayName,
+          email,
+          createdAt,
+          ...additionalData,
+        });
+      } catch (error) {
+        console.error(error.message || error);
+      }
+    }
+    return userRef;
+  }
+};
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();
