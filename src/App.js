@@ -1,58 +1,58 @@
-import { Component } from "react";
+import { useEffect } from "react";
 
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import { Homepage } from "./pages/homepage/Homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import { Header } from "./components/Header";
 import { Authentication } from "./pages/authentication";
 import { auth, createUserProfileDoc } from "./firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentUser } from "./redux/user/actions";
 
-class App extends Component {
-  constructor() {
-    super();
+const App = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
-    this.state = {
-      currentUser: null,
-    };
-  }
-
-  unsubscribeFromAuth = null;
-
-  componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
+  useEffect(() => {
+    const unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userRef = await createUserProfileDoc(user, null);
 
         userRef.onSnapshot((snapshot) => {
-          this.setState({
-            currentUser: {
+          dispatch(
+            setCurrentUser({
               id: snapshot.id,
               ...snapshot.data(),
-            },
-          });
+            })
+          );
         });
+      } else {
+        dispatch(setCurrentUser(null));
       }
     });
-  }
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+    return () => {
+      unsubscribeFromAuth();
+    };
+  }, [dispatch]);
 
-  render() {
-    return (
-      <div>
-        <Header currentUser={this.state.currentUser} />
-        <Switch>
-          <Route exact path="/" component={Homepage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route path="/signin" component={Authentication} />
-        </Switch>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Homepage} />
+        <Route path="/shop" component={ShopPage} />
+        <Route
+          path="/signin"
+          render={() =>
+            currentUser ? <Redirect to="/" /> : <Authentication />
+          }
+        />
+      </Switch>
+    </div>
+  );
+};
 
 export default App;
