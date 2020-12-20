@@ -4,9 +4,12 @@ import { useSelector } from "react-redux";
 
 import "./styles.scss";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
+import { CartIcon } from "../CartIcon";
+import { CartDropdown } from "../CartDropdown";
 
 export const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const { isHidden } = useSelector((state) => state.cart);
 
   return (
     <div className="header">
@@ -29,7 +32,9 @@ export const Header = () => {
             Sign in
           </Link>
         )}
+        <CartIcon />
       </div>
+      {isHidden ? null : <CartDropdown />}
     </div>
   );
 };
