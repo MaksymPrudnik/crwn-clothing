@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { MenuItem } from "../MenuItem/MenuItem.component";
+import { MenuItem } from "../MenuItem";
 import "./styles.scss";
 
 export const Directory = () => {
