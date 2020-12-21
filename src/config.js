@@ -1,7 +1,11 @@
 const requireReactEnvVar = (name) => {
   const envVar = process.env[`REACT_APP_${name}`];
   if (!envVar) {
-    throw new Error(`Failed to import environment variable - ${name}`);
+    throw new Error(
+      process.env.NODE_ENV !== "production"
+        ? `Failed to import environment variable - ${name}`
+        : "Error loading environmental variables"
+    );
   }
   return envVar;
 };
