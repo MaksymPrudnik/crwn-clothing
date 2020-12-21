@@ -19,7 +19,7 @@ export const CollectionItem = ({ item }) => {
         <span className="price">{price}</span>
       </div>
       <CustomButton
-        customClasses="inverted"
+        customStyles="inverted"
         onClick={() => dispatch(addItem(item))}
       >
         Add to cart

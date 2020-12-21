@@ -1,9 +1,8 @@
-import "./styles.scss";
-
 import { Directory } from "../../components/Directory";
+import { HomepageContainer } from "./styled";
 
 export const Homepage = () => (
-  <div className="homepage">
+  <HomepageContainer>
     <Directory />
-  </div>
+  </HomepageContainer>
 );

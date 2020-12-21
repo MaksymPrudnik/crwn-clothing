@@ -1,8 +1,5 @@
-import "./styles.scss";
+import { CustomButtonContainer } from "./styled";
 
-export const CustomButton = ({ children, customClasses, ...otherProps }) => (
-  <button className={`custom-button ${customClasses}`} {...otherProps}>
-    {" "}
-    {children}{" "}
-  </button>
+export const CustomButton = ({ children, ...otherProps }) => (
+  <CustomButtonContainer {...otherProps}> {children} </CustomButtonContainer>
 );

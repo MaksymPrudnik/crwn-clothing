@@ -1,8 +1,12 @@
-import { Link } from "react-router-dom";
 import { auth } from "../../firebase";
 import { useSelector } from "react-redux";
 
-import "./styles.scss";
+import {
+  HeaderContainer,
+  LogoContainer,
+  OptionsContainer,
+  OptionLink,
+} from "./styled";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { CartIcon } from "../CartIcon";
 import { CartDropdown } from "../CartDropdown";
@@ -12,29 +16,23 @@ export const Header = () => {
   const { isHidden } = useSelector((state) => state.cart);
 
   return (
-    <div className="header">
-      <Link className="logo-container" to="/">
+    <HeaderContainer>
+      <LogoContainer to="/">
         <Logo className="logo" />
-      </Link>
-      <div className="options">
-        <Link className="option" to="/shop">
-          Shop
-        </Link>
-        <Link className="option" to="/shop">
-          Contacts
-        </Link>
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to="/shop">Shop</OptionLink>
+        <OptionLink to="/shop">Contacts</OptionLink>
         {currentUser ? (
-          <div className="option" onClick={() => auth.signOut()}>
+          <OptionLink as="div" onClick={() => auth.signOut()}>
             Sign out
-          </div>
+          </OptionLink>
         ) : (
-          <Link className="option" to="/signin">
-            Sign in
-          </Link>
+          <OptionLink to="/signin">Sign in</OptionLink>
         )}
         <CartIcon />
-      </div>
+      </OptionsContainer>
       {isHidden ? null : <CartDropdown />}
-    </div>
+    </HeaderContainer>
   );
 };
