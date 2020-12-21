@@ -1,7 +1,7 @@
 import StripeCheckout from "react-stripe-checkout";
 import config from "../../config";
 
-export const StripeCheckoutButton = (price) => {
+export const StripeCheckoutButton = ({ price }) => {
   const stripePrice = price * 100;
 
   const onToken = (token) => {
