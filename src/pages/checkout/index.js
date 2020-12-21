@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { CheckoutItem } from "../../components/CheckoutItem";
+import { StripeCheckoutButton } from "../../components/StripeButton";
 import "./styles.scss";
 
 export const CheckoutPage = () => {
@@ -33,6 +34,12 @@ export const CheckoutPage = () => {
       <div className="total">
         <span>TOTAL: ${checkoutTotal}</span>
       </div>
+      <div className="test-warning">
+        *Please use the following credit card for test payments*
+        <br />
+        4242 4242 4242 4242 - Exp: 01/2022 - CVV: 123
+      </div>
+      <StripeCheckoutButton price={checkoutTotal} />
     </div>
   );
 };

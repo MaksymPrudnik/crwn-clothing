@@ -2,23 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
-const requireReactEnvVar = (name) => {
-  const envVar = process.env[`REACT_APP_${name}`];
-  if (!envVar) {
-    throw new Error(`Failed to import environment variable - ${name}`);
-  }
-  return envVar;
-};
-
-const config = {
-  apiKey: requireReactEnvVar("FIREBASE_API_KEY"),
-  authDomain: requireReactEnvVar("FIREBASE_AUTH_DOMAIN"),
-  projectId: requireReactEnvVar("FIREBASE_PROJECT_ID"),
-  storageBucket: requireReactEnvVar("FIREBASE_STORAGE_BUCKET"),
-  messagingSenderId: requireReactEnvVar("FIREBASE_MESSAGING_SENDER_ID"),
-  appId: requireReactEnvVar("FIREBASE_APP_ID"),
-  measurementId: requireReactEnvVar("FIREBASE_MEASUREMENT_ID"),
-};
+import config from "../config";
 
 export const createUserProfileDoc = async (user, additionalData) => {
   if (!user) {
@@ -48,7 +32,7 @@ export const createUserProfileDoc = async (user, additionalData) => {
   }
 };
 
-firebase.initializeApp(config);
+firebase.initializeApp(config.firebase);
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
