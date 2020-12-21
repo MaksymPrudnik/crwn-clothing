@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import "./App.css";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import { Homepage } from "./pages/homepage/Homepage.component";
-import ShopPage from "./pages/shop/shop.component";
+import { Homepage } from "./pages/homepage";
+import ShopPage from "./pages/shop";
 import { AuthenticationPage } from "./pages/authentication";
 import { CheckoutPage } from "./pages/checkout";
 
