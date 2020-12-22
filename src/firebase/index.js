@@ -16,6 +16,12 @@ export const pushDataToFirestore = async (collectionName, data) => {
   return await batch.commit();
 };
 
+export const convertCollectionSnapshotToMap = (collections) =>
+  collections.docs.reduce((acc, doc) => {
+    acc[doc.id] = doc.data();
+    return acc;
+  }, {});
+
 export const createUserProfileDoc = async (user, additionalData) => {
   if (!user) {
     console.error("User object was not passed");
