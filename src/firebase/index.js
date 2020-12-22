@@ -4,6 +4,18 @@ import "firebase/auth";
 
 import config from "../config";
 
+export const pushDataToFirestore = async (collectionName, data) => {
+  const collectionRef = firestore.collection(collectionName);
+
+  const batch = firestore.batch();
+  Object.keys(data).forEach((name) => {
+    const newDocRef = collectionRef.doc(name);
+    batch.set(newDocRef, data[name]);
+  });
+
+  return await batch.commit();
+};
+
 export const createUserProfileDoc = async (user, additionalData) => {
   if (!user) {
     console.error("User object was not passed");
