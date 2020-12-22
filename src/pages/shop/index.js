@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Route } from "react-router-dom";
+
 import { CollectionOverview } from "../../components/CollectionOverveiw";
-import { WithSpinner } from "../../components/WithSpinner";
-import { convertCollectionSnapshotToMap, firestore } from "../../firebase";
-import { updateCollections } from "../../redux/shop/actions";
 import { CollectionPage } from "../collection";
+import { WithSpinner } from "../../components/WithSpinner";
+
+import { convertCollectionSnapshotToMap, firestore } from "../../firebase";
+
+import { updateCollections } from "../../redux/shop/actions";
 
 const CollectionOverviewWithSpinner = WithSpinner(CollectionOverview);
 const CollectionPageWithSpinner = WithSpinner(CollectionPage);
